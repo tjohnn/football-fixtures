@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.tjohnn.footballfixtures.R
 import com.tjohnn.footballfixtures.data.dto.League
+import kotlinx.android.synthetic.main.list_item_fixture.view.*
 
 class LeaguesAdapter(val mListener: OnLeagueItemListener): RecyclerView.Adapter<LeaguesAdapter.LeagueViewHolder>() {
 
@@ -17,7 +18,7 @@ class LeaguesAdapter(val mListener: OnLeagueItemListener): RecyclerView.Adapter<
         return LeagueViewHolder(view)
     }
 
-    private var items: ArrayList<League> = arrayListOf()
+    var items: ArrayList<League> = arrayListOf(League(1, "Premier league"), League(1, "Cha,mpions"))
 
     override fun getItemCount() = items.size
 
@@ -37,8 +38,7 @@ class LeaguesAdapter(val mListener: OnLeagueItemListener): RecyclerView.Adapter<
 
 
         fun bindData(league: League){
-            val textView = itemView as TextView
-            textView.text = league.name
+            itemView.tv_league_name.text = league.name
             itemView.setOnClickListener{
                 mListener.onLeagueItemClicked(league)
             }

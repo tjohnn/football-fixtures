@@ -46,21 +46,24 @@ class LeaguesFragment : DaggerFragment(), LeaguesAdapter.OnLeagueItemListener {
     private fun subscribeToViewModel() {
         mViewModel.getIsLoading().observe(this, Observer {
 
-            view?.progressBar?.let { view ->
-                if (it?.getContentIfNotHandled() != null && it.peekContent() == true)
-                    view.visibility = View.VISIBLE
+            view?.progressBar?.run {
+                visibility = if (it?.getContentIfNotHandled() != null && it.peekContent() == true)
+                    View.VISIBLE
                 else
-                    view.visibility = View.INVISIBLE
+                    View.INVISIBLE
             }
         })
 
         mViewModel.getLeagues().observe(this, Observer {
             if(it == null || it.isEmpty()){
                 mViewModel.loadLeagues()
-                return@Observer
+            } else{
+                val list = it
+                leaguesAdapter.items = list as ArrayList<League>
+                leaguesAdapter.notifyDataSetChanged()
+                Log.d(TAG, it.toString())
             }
-            leaguesAdapter.updateItems(it as ArrayList<League>)
-            Log.d(TAG, it.toString())
+
         })
 
         mViewModel.getSnackBarMessage().observe(this, Observer {
