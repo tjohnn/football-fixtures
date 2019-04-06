@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FootballFixtures</string>
+    <string name="leagues">Leagues</string>
+    <string name="home">Home</string>
+</resources>
