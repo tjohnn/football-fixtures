@@ -36,7 +36,7 @@ class LeaguesFragment : DaggerFragment(), LeaguesAdapter.OnLeagueItemListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_leagues, container, false)
 
-        setupAdapter()
+        setupAdapter(view)
 
         subscribeToViewModel()
 
@@ -73,9 +73,11 @@ class LeaguesFragment : DaggerFragment(), LeaguesAdapter.OnLeagueItemListener {
         })
     }
 
-    private fun setupAdapter() {
+    private fun setupAdapter(view: View) {
         leaguesAdapter = LeaguesAdapter(this)
-        view?.leagueList?.run {
+        view.leagueList?.run {
+            Log.e(TAG, "I see you")
+            Log.e(TAG, leaguesAdapter.toString())
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(mActivity)
             adapter = leaguesAdapter
