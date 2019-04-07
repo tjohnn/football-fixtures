@@ -3,6 +3,7 @@ package com.tjohnn.footballfixtures.ui.leagues
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -13,7 +14,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.tjohnn.footballfixtures.R
 import com.tjohnn.footballfixtures.data.dto.League
+import com.tjohnn.footballfixtures.ui.fixtures.FixturesActivity
+import com.tjohnn.footballfixtures.ui.fixtures.FixturesFragment
+import com.tjohnn.footballfixtures.utils.Utils
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_fixture_table.view.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_leagues.view.*
 import javax.inject.Inject
 
@@ -24,13 +30,15 @@ class LeaguesFragment : DaggerFragment(), LeaguesAdapter.OnLeagueItemListener {
     lateinit var mActivity: AppCompatActivity
     @Inject
     lateinit var factory: ViewModelProvider.Factory
-    lateinit var mViewModel: LeaguesViewModel
+    private lateinit var mViewModel: LeaguesViewModel
 
-    lateinit var leaguesAdapter: LeaguesAdapter
+    private lateinit var leaguesAdapter: LeaguesAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewModel = ViewModelProviders.of(this, factory).get(LeaguesViewModel::class.java)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -38,9 +46,17 @@ class LeaguesFragment : DaggerFragment(), LeaguesAdapter.OnLeagueItemListener {
 
         setupAdapter(view)
 
-        subscribeToViewModel()
-
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        subscribeToViewModel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mActivity.title = getString(R.string.leagues)
     }
 
     private fun subscribeToViewModel() {
@@ -85,7 +101,8 @@ class LeaguesFragment : DaggerFragment(), LeaguesAdapter.OnLeagueItemListener {
     }
 
     override fun onLeagueItemClicked(league: League) {
-
+        Utils.replaceFragmentToBackStack(mActivity.supportFragmentManager,
+                FixtureTableFragment.newInstance(league.id, league.name), FixtureTableFragment.TAG, R.id.content_leagues)
     }
 
     companion object {

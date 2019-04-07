@@ -6,27 +6,23 @@ import com.tjohnn.footballfixtures.di.annotations.FragmentScoped
 import com.tjohnn.footballfixtures.ui.leagues.FixtureTableFragment
 import com.tjohnn.footballfixtures.ui.leagues.LeaguesActivity
 import com.tjohnn.footballfixtures.ui.leagues.LeaguesFragment
+import com.tjohnn.footballfixtures.ui.table.TableActivity
+import com.tjohnn.footballfixtures.ui.table.TableFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class LeaguesActivityModule {
+abstract class TablesActivityModule {
 
     @FragmentScoped
     @ContributesAndroidInjector()
-    abstract fun leaguesFragment(): LeaguesFragment
+    abstract fun tablesFragment(): TableFragment
 
-
-    @FragmentScoped
-    @ContributesAndroidInjector()
-    abstract fun fixtureTableFragment(): FixtureTableFragment
 
 
     @ActivityScoped
     @Binds
-    abstract fun activity(leaguesActivity: LeaguesActivity): AppCompatActivity
+    abstract fun activity(tableActivity: TableActivity): AppCompatActivity
 }
 
-@Module
-class  LeaguesFragmentModule

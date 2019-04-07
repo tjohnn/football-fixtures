@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.tjohnn.footballfixtures.R
 import com.tjohnn.footballfixtures.data.dto.League
 import kotlinx.android.synthetic.main.list_item_fixture.view.*
@@ -18,19 +17,13 @@ class LeaguesAdapter(val mListener: OnLeagueItemListener): RecyclerView.Adapter<
         return LeagueViewHolder(view)
     }
 
-    var items: ArrayList<League> = arrayListOf(League(1, "Premier league"), League(1, "Cha,mpions"))
+    var items: ArrayList<League> = arrayListOf()
 
     override fun getItemCount() = items.size
 
 
     override fun onBindViewHolder(holder: LeagueViewHolder, pos: Int) {
-        Log.d("onBindViewHolder", "$pos")
         holder.bindData(items[pos])
-    }
-
-    fun updateItems(items: ArrayList<League>) {
-        this.items = items
-        notifyDataSetChanged()
     }
 
 

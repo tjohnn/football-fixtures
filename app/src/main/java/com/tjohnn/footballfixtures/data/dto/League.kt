@@ -6,6 +6,6 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "leagues")
 data class League(
         @PrimaryKey(autoGenerate = false)
-        var id: Int = 0,
+        var id: Long = 0,
         val name: String
 )

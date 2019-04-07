@@ -16,4 +16,5 @@ class LeagueRepository
 
     fun loadLeagues() = apiService.loadLeagues()
     fun refreshLeagues(leagues: List<League>) : Completable = Completable.fromAction{leagueDao.refreshLeaguesTable(leagues)}
+    fun loadLeagueTable(leagueId: Long) = apiService.loadTables(leagueId)
 }

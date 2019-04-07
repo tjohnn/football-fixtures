@@ -24,6 +24,13 @@ object Utils {
                 .addToBackStack(tag).commit()
     }
 
+    fun replaceFragmentToBackStack(fragmentManager: FragmentManager, fragment: Fragment,
+                               tag: String, frameId: Int) {
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(frameId, fragment, tag)
+                .addToBackStack(tag).commit()
+    }
+
     fun addFragment(fragmentManager: FragmentManager, fragment: Fragment,
                     tag: String, frameId: Int) {
         val transaction = fragmentManager.beginTransaction()
